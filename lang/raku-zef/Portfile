@@ -34,7 +34,7 @@ destroot {
         --to="inst#${destroot}${prefix}/share/perl6/site" \
         install "${worksrcpath}"
 
-    ln -s "${prefix}/share/perl6/site/bin/zef"   "${prefix}/bin/zef"
-    ln -s "${prefix}/share/perl6/site/bin/zef-m" "${prefix}/bin/zef-m"
+    ln -s "${prefix}/share/perl6/site/bin/zef"   "${destroot}${prefix}/bin/zef"
+    ln -s "${prefix}/share/perl6/site/bin/zef-m" "${destroot}${prefix}/bin/zef-m"
 }
 
