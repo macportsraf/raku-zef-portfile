@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        ugexe zef 0.21.1 v
+name                raku-zef
+revision            0
+
+description         Raku Module Management
+long_description    {*}${description} \
+                    \nZef installs, upgrades, and uninstalls raku modules.
+license             Artistic-2
+categories          lang perl
+platforms           any
+maintainers         {raf.org:raf @macportsraf} openmaintainer
+
+checksums           rmd160  bde9037268a207395a022f9a76e46b9c29aceeea \
+                    sha256  534e76579687b3d27daa6906745e9aa7bf244cf574c9e5fac880e54af0e91b7d \
+                    size    88278
+
+depends_lib-append  port:rakudo
+
+use_configure       no
+
+build {}
+
+test.run            yes
+test.cmd            "${prefix}/bin/rakudo" -I"${worksrcpath}" bin/zef test "${worksrcpath}"
+test.target
+
+destroot {
+    "${prefix}/bin/rakudo" -I"${worksrcpath}" bin/zef \
+        --to="inst#${destroot}${prefix}/share/perl6/site" \
+        install "${worksrcpath}"
+
+    ln -s "${prefix}/share/perl6/site/bin/zef"   "${prefix}/bin/zef"
+    ln -s "${prefix}/share/perl6/site/bin/zef-m" "${prefix}/bin/zef-m"
+}
+
