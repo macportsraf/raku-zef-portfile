@@ -29,12 +29,17 @@ test.run            yes
 test.cmd            "${prefix}/bin/rakudo" -I"${worksrcpath}" bin/zef test "${worksrcpath}"
 test.target
 
-destroot {
-    "${prefix}/bin/rakudo" -I"${worksrcpath}" bin/zef \
-        --to="inst#${destroot}${prefix}/share/perl6/site" \
-        install "${worksrcpath}"
+destroot.cmd        "${prefix}/bin/rakudo" -I"${worksrcpath}" bin/zef \
+                    --to="inst#${destroot}${prefix}/share/perl6/site" \
+                    install "${worksrcpath}"
+destroot.args
+destroot.pre_args
+destroot.post_args
 
+post-destroot {
     ln -s "${prefix}/share/perl6/site/bin/zef"   "${destroot}${prefix}/bin/zef"
     ln -s "${prefix}/share/perl6/site/bin/zef-m" "${destroot}${prefix}/bin/zef-m"
+    # rakudo provides this, so delete this identical copy to prevent a clash
+    file delete "${destroot}${prefix}/share/perl6/site/version"
 }
 
