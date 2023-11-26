@@ -19,7 +19,7 @@ checksums           rmd160  bde9037268a207395a022f9a76e46b9c29aceeea \
                     sha256  534e76579687b3d27daa6906745e9aa7bf244cf574c9e5fac880e54af0e91b7d \
                     size    88278
 
-depends_lib-append  port:rakudo
+depends_lib-append  port:rakudo port:curl port:git port:wget
 
 use_configure       no
 
